@@ -33,10 +33,33 @@ use Illuminate\Support\Facades\Route;
 //    return $foo;
 //})->where('foo', '[0-9a-zA-Z]{3}')->name('foo');
 // 코드 3-8 app/Http/routes.php
-Route::get('/', function () {
-        return '제 이름은 "home" 입니다.';
-    })->name('home');
+//Route::get('/', function () {
+//        return '제 이름은 "home" 입니다.';
+//    })->name('home');
+//
+//Route::get('/home', function () {
+//    return redirect(route('home'));
+//});
+//
+//Route::get('/second', function () {
+//    return view('second.second');
+//});
 
-Route::get('/home', function () {
-    return redirect(route('home'));
+// 코드 4-2 app/Http/routes.php
+//Route::get('/', function () {
+//    return view('test')->with('name', '김판우');
+//});
+// 코드 4-4 app/Http/routes.php
+//Route::get('/', function () {
+//    return view('test')->with([
+//        'name' => '판우',
+//        'greeting' => '안녕하세요?',
+//    ]);
+//});
+// 코드 4-5 app/Http/routes.php
+Route::get('/', function () {
+    return view('test', [
+        'name' => 'Foo',
+        'greeting' => '안녕하세요?',
+    ]);
 });

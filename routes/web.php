@@ -57,9 +57,16 @@ use Illuminate\Support\Facades\Route;
 //    ]);
 //});
 // 코드 4-5 app/Http/routes.php
+//Route::get('/', function () {
+//    return view('test', [
+//        'name' => '판우',
+//        'greeting' => '안녕하세요?',
+//    ]);
+//});
+//Route::get('/', function () {
+//    $items = ['apple', 'banana', 'tomato'];
+//    return view('test', ['items' => $items]);
+//});
 Route::get('/', function () {
-    return view('test', [
-        'name' => 'Foo',
-        'greeting' => '안녕하세요?',
-    ]);
+    return view('test');
 });

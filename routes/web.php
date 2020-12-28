@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,6 +69,8 @@ use Illuminate\Support\Facades\Route;
 //    $items = ['apple', 'banana', 'tomato'];
 //    return view('test', ['items' => $items]);
 //});
-Route::get('/', function () {
-    return view('test');
-});
+//Route::get('/', function () {
+//    return view('test');
+//});
+Route::get('/',[WelcomeController::class, 'index'])->name('index');
+Route::resource('articles', ArticlesController::class);

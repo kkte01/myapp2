@@ -74,3 +74,7 @@ use Illuminate\Support\Facades\Route;
 //});
 Route::get('/',[WelcomeController::class, 'index'])->name('index');
 Route::resource('articles', ArticlesController::class);
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

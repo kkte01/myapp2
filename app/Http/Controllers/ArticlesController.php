@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Article;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class ArticlesController extends Controller
 {
@@ -13,7 +16,19 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        return __METHOD__. '은(는) Articles 컬렉션을 조회합니다.';
+//        DB::listen(function (\Illuminate\Database\Events\QueryExecuted $query){
+//            dump($query->sql);
+//        });
+        //$articles = Article::get();
+        //N+1 쿼리 해결 방법
+        //$articles = Article::with('user')->get();
+        //지연 로드
+//        $articles = Article::get();
+//        //user() 관계가 필요 없는 다른 로직 수행
+//        $articles->load('user');
+        //페이지네이터 확인
+        $articles = Article::latest()->paginate(3);
+        return view('articles.index', compact('articles'));
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\WelcomeController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -72,9 +73,11 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/', function () {
 //    return view('test');
 //});
+
 Route::get('/',[WelcomeController::class, 'index'])->name('index');
 Route::resource('articles', ArticlesController::class);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return view('articles.index');
 })->name('dashboard');
+

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ArticleCreated;
+use App\Events\ArticlesEvent;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Article;
@@ -52,11 +54,15 @@ class ArticlesController extends Controller
      */
     public function store(ArticlesRequest $request)
     {
-        $articles = User::find(1)->articles()->create($request->all());
+        $article = User::find(1)->articles()->create($request->all());
 
-        if(!$articles){
+        if(!$article){
             return back()->with('flash_message', '글이 저장되지 않았습니다.')->withInput();
         }
+        //var_dump('이벤트를 던집니다.');
+        //event(new ArticleCreated($article));
+        //var_dump('이벤트를 던졌습니다.');
+        event(new ArticlesEvent($article));
         return redirect(route('articles.index'))->with('flash_message', '작성하신 글이 저장되었습니다.');
     }
 

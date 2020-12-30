@@ -58,6 +58,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    protected $dates = ['last_login'];
+
     public function articles(){
         return $this->hasMany(Article::class);
     }

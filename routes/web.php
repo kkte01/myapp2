@@ -78,6 +78,6 @@ Route::get('/',[WelcomeController::class, 'index'])->name('index');
 Route::resource('articles', ArticlesController::class);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('articles.index');
+    return redirect(route('articles.index'));
 })->name('dashboard');
 

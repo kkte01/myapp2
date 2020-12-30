@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\ArticlesRequest as ArticlesRequest;
 class ArticlesController extends Controller
 {
     /**
@@ -38,18 +40,24 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        return __METHOD__ . '은(는) Article 컬렉션을 만들기 위한 폼을 담은 뷰를 반환합니다.';
+        //return __METHOD__ . '은(는) Article 컬렉션을 만들기 위한 폼을 담은 뷰를 반환합니다.';
+        return view('articles.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ArticlesRequest $request
      * @return string
      */
-    public function store(Request $request)
+    public function store(ArticlesRequest $request)
     {
-        return __METHOD__ . '은(는) 사용자의 입력한 폼 데이터로 새로운 Article 컬렉션을 만듭니다.';
+        $articles = User::find(1)->articles()->create($request->all());
+
+        if(!$articles){
+            return back()->with('flash_message', '글이 저장되지 않았습니다.')->withInput();
+        }
+        return redirect(route('articles.index'))->with('flash_message', '작성하신 글이 저장되었습니다.');
     }
 
     /**

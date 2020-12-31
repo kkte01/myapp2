@@ -19,6 +19,7 @@
             </div>
 
             <!-- Settings Dropdown -->
+            @if(isset(Auth::user()->name))
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-jet-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -28,7 +29,7 @@
                             </button>
                         @else
                             <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                                <div>{{ Auth::user()->name }}</div>
+                                <div>{{ Auth::user()->name}}</div>
 
                                 <div class="ml-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -101,7 +102,7 @@
                     </x-slot>
                 </x-jet-dropdown>
             </div>
-
+            @endif
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
@@ -123,6 +124,7 @@
         </div>
 
         <!-- Responsive Settings Options -->
+        @if(isset(Auth::user()->name))
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="flex items-center px-4">
                 <div class="flex-shrink-0">
@@ -188,5 +190,6 @@
                 @endif
             </div>
         </div>
+        @endif
     </div>
 </nav>

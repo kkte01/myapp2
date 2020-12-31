@@ -32,6 +32,7 @@ class ArticlesController extends Controller
 //        $articles->load('user');
         //페이지네이터 확인
         $articles = Article::latest()->paginate(3);
+        dd(view('articles.index', compact('articles'))->render());
         return view('articles.index', compact('articles'));
     }
 
@@ -74,7 +75,10 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-        return __METHOD__ . '은(는) 다음 기본키를 가진 Article 모델을 조회합니다.:' . $id;
+        //return __METHOD__ . '은(는) 다음 기본키를 가진 Article 모델을 조회합니다.:' . $id;
+        $article = Article::findOrFail($id);
+        dd($article);
+        return  $article->toArray();
     }
 
     /**

@@ -32,7 +32,7 @@ class ArticlesController extends Controller
 //        $articles->load('user');
         //페이지네이터 확인
         $articles = Article::latest()->paginate(3);
-        dd(view('articles.index', compact('articles'))->render());
+        //dd(view('articles.index', compact('articles'))->render());
         return view('articles.index', compact('articles'));
     }
 

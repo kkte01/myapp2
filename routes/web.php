@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,4 +81,37 @@ Route::resource('articles', ArticlesController::class);
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return redirect(route('articles.index'));
 })->name('dashboard');
-
+// 코드 16-3 app/Http/routes.php
+Route::get('mail', function () {
+    $article = App\Models\Article::with('user')->find(1);
+//    return Mail::send(
+//        'emails.articles.created',
+//        compact('article'),
+//        function ($message) use ($article){
+//            $message->to('kkte03@gmail.com');
+//            $message->subject('새 글이 등록되었습니다 -' . $article->title);
+//        }
+//    );
+    //return
+        Mail::send(
+        'emails.articles.created',
+        compact('article'),
+        function ($message) use ($article){
+            $message->from('kwan@example.com', 'PanWoo');
+            $message->to('kkte03@gmail.com');
+            $message->subject('새 글이 등록되었습니다 -' . $article->title);
+            $message->cc('kkte03@gmail.com');
+            //$message->attach(storage_path('good.png'));
+        }
+    );
+//    // 코드 16-7 app/Http/routes.php
+//    Mail::send(
+//        ['text' => 'emails.articles.created-text'],
+//        compact('article'),
+//        function ($message) use ($article){
+//            $message->to('kkte03@gmail.com');
+//            $message->subject('새 글이 등록되었습니다 -' . $article->title);
+//        }
+//    );
+    echo"텍스트 파일 전송 완료";
+});
